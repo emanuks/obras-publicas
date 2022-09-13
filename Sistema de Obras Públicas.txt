@@ -1,0 +1,139 @@
+Table Buraco {
+  id integer [pk, increment]
+  localizacao_id integer [ref: <> Localizacao.id]
+  tamanho_id integer [ref: <> Tamanho.id]
+  endereco_id integer [ref: > Endereco.id]
+}
+
+Table Tamanho {
+  id integer [pk, increment]
+  escala integer
+  prioridade_id integer [ref: > Prioridade.id]
+}
+
+Table Localizacao {
+  id integer [pk, increment]
+  local text [not null]
+}
+
+Table Bairro {
+  id integer [pk, increment]
+  nome text [not null]
+  cidade_id integer [ref: > Cidade.id]
+}
+
+Table Prioridade {
+  id integer [pk, increment]
+  descricao text [not null]
+} 
+
+Table DadosOrdemTrabalho {
+  id integer [pk, increment]
+  horas_trabalhadas integer [not null]
+  material_utilizado integer [not null]
+  custo float [not null]
+  buraco_id integer [ref: - Buraco.id]
+  equipe_id integer [ref: > Equipe.id]
+  equipamento_id integer [ref: <> Equipamento.id]
+  status_reparo_id integer [ref: > StatusReparo.id]
+}
+
+Table Equipe {
+  id integer [pk, increment]
+  tamanho_equipe integer [not null]
+}
+
+Table Equipamento {
+  id integer [pk, increment]
+  descricao text [not null]
+}
+
+Table StatusReparo {
+  id integer [pk, increment]
+  descricao text [not null]
+}
+
+Table Endereco {
+  id integer [pk, increment]
+  cep varchar(14) [not null]
+  rua varchar(20) 
+  quadra integer
+  lote integer
+  numero integer
+  bairro_id integer [ref: > Bairro.id]
+}
+
+Table Estado {
+  id integer [pk, increment]
+  nome text [not null]
+}
+
+Table Cidade {
+  id integer [pk, increment]
+  estado_id integer [ref: > Estado.id]
+  nome text [not null]
+}
+
+
+Table Cidadao {
+  cpf integer [pk]
+  nome text [not null]
+  cargo_id integer [ref: > Cargo.id]
+  escolaridade_id integer [ref: > Escolaridade.id]
+  estado_civil_id integer [ref: > EstadoCivil.id]
+  genero_id integer [ref: > Genero.id]
+  naturalidade_id integer [ref: > Naturalidade.id]
+  endereco_id integer [ref: > Endereco.id]
+}
+
+Table DanosOcorridos {
+  id integer [pk, increment]
+  valor float [not null]
+  cidadao_id integer [ref: <> Cidadao.cpf]
+  tipo_dano_id integer [ref: > TipoDano.id]
+}
+
+Table TipoDano {
+  id integer [pk, increment]
+  descricao text [not null]
+}
+
+Table Telefone {
+  id integer [pk, increment]
+  usuario_id integer [ref: > Cidadao.cpf]
+  ddd varchar(2) [not null]
+  numero varchar(10) [not null]
+}
+
+Table Email {
+  id integer [pk, increment]
+  usuario_id integer [ref: > Cidadao.cpf]
+  email text [not null]
+}
+
+Table Cargo {
+  id integer [pk, increment]
+  descricao text [not null]
+}
+
+
+Table EstadoCivil {
+  id integer [pk, increment]
+  descricao text
+}
+
+Table Escolaridade {
+  id integer [pk, increment]
+  nome text [not null]
+  curso text
+}
+
+Table Genero {
+  id integer [pk, increment]
+  nome text
+}
+
+Table Naturalidade {
+  id integer [pk, increment]
+  descricao text
+}
